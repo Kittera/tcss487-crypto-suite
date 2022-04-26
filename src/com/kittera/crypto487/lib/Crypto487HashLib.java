@@ -200,10 +200,10 @@ public class Crypto487HashLib {
        *
        * @param parameterB Total state/block size in bits, Keccak's parameter b. Must be
        *                   one of: 25, 50, 100, 200, 400, 800, 1600
-       * @param capacity   integer in range (1, b - 1)
+       * @param parameterC Keccak capacity, parameter c: integer in range (1, b - 1)
        * @return appropriately initialized KeccakCore
        */
-      protected KeccakCore fromBlockSize(final int parameterB, final int capacity) {
+      protected KeccakCore fromBlockSize(final int parameterB, final int parameterC) {
          //validate input, more sanity checking
          final KBlockSize candidateBlockSize = KBlockSize.findByB(parameterB);
          if (candidateBlockSize == KBlockSize.ERROR) {
@@ -215,10 +215,11 @@ public class Crypto487HashLib {
                         """;
             throw new IllegalArgumentException(errstring);
          }
-         assert capacity < candidateBlockSize.inBits() - 1 && capacity > 1;
+         //capacity is a positive integer but cannot be larger than the block size
+         assert parameterC < candidateBlockSize.inBits() - 1 && parameterC > 1;
          
          //if we make it here, check succeeded and no exception was thrown
-         return new KeccakCore(candidateBlockSize, capacity);
+         return new KeccakCore(candidateBlockSize, parameterC);
       }
       
       /**
@@ -235,6 +236,34 @@ public class Crypto487HashLib {
          //if we make it here, check succeeded and no exception was thrown
          return new KeccakCore(candidateBlockSize, parameterC);
       }
+   
+      /**
+       * This is the round function of keccak. It determines the order in which the five
+       * layers of the permutation are applied. For SHA-3 implementations this must always
+       * be called 24 times per update.
+       */
+      private void keccak-F() {}
       
+      private void theta() {
+         //round function layer 1
+      }
+      
+      private void rho() {
+         //round function layer 2
+      }
+      
+      private void pi() {
+         //round function layer 3
+      }
+      
+      private void chi() {
+         //round function layer 4
+      }
+      
+      private void iota() {
+         //round function layer 5
+      }
+      
+      private class KeccakState() {}
    }
 }
